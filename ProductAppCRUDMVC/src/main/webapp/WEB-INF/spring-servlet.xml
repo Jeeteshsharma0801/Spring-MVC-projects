@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:p="http://www.springframework.org/schema/p"
+     
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    
+     xmlns:mvc="http://www.springframework.org/schema/mvc"
+    
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    
+   http://www.springframework.org/schema/tx
+   http://www.springframework.org/schema/tx/spring-tx.xsd
+   
+   http://www.springframework.org/schema/mvc
+   http://www.springframework.org/schema/mvc/spring-mvc.xsd
+   ">
+   
+   <tx:annotation-driven />
+   <!-- all tx related are for transactional enable -->
+   
+   <context:component-scan base-package="productAppCRUDMVC" />
+   
+   <!-- view Resolver -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"  name="viewResolver">
+      
+      <property name="prefix" value="/WEB-INF/views/" />
+      <property name="suffix" value=".jsp"></property>
+    </bean>
+    
+    
+    <!-- 3) now definning the datasource of i.e. used i.e. "ds" in definning factory above -->
+    <bean
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		name="ds">
+
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/jeetesh" />
+		<property name="username" value="root" />
+		<property name="password" value="Jeet0801@"></property>
+
+	</bean>
+	
+	<!-- 2) since we have used factory class in definning hibernate template bean below ,
+    so we need to define factory -->
+    <bean
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
+		name="factory">
+
+		<!-- data source -->
+		<property name="dataSource" ref="ds"></property>
+
+		<!-- hibernate properties -->
+		<property name="hibernateProperties">
+			<props>
+				<!-- <prop key="hibernate.dialect">org.hibernate.dialect.MySQL57Dialect</prop> -->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+
+		<!-- annotated classes -->
+		<property name="annotatedClasses">
+			<list>
+				<value>
+					productAppCRUDMVC.model.Product
+				</value>
+			</list>
+		</property>
+
+	</bean>
+    
+    
+    
+    <!-- To use hibernate template to connect with DB |||| starts-->
+    <!-- 1) defining the hibernate teamplate bean , so as to use in DAO class -->
+   <bean
+		class=" org.springframework.orm.hibernate5.HibernateTemplate"
+		name="hibernateTemplate">
+		<property name="sessionFactory" ref="factory"></property>
+
+	</bean>	
+	
+	
+	<!-- To use @TransactionalManager in UserDao class , to enable to write operation in DB -->
+	<bean
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager"
+		name="transactionManager">
+		<property name="sessionFactory" ref="factory"></property>
+	</bean>
+    
+    
+</beans>
+    
+    

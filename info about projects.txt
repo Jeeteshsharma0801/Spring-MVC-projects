@@ -1,0 +1,25 @@
+1)springmvc
+In this project , we done complete configuration of web.xml(contain servlet name and its URL mapping i.e./ i..e all URLs accepted) and dispatcher servlet(i.e. spring-servlet.xml) 
+In this also when running this project , localhost:8080/springmvc/contact from this URL a form will be open and when filling and submitting this form , the data will be saved in MYSQL DB with the help of hibernate and dependency
+
+
+
+
+2) springmvcsearch
+This project is related to use of @requestparam and RedirectView 
+In this project we made one form with the help of bootstrap and css and with the help of @requestparam , we taken value of the text box of form to here in controller and with the help	of RedirectView , we redirected to google.com from this controller.
+
+eg. we typed in textbox : jeetesh
+therefor , upon click of search button 
+google will be open by searching the jeetesh
+i.e. google.com/jeetesh
+
+
+3) Spring ORM source code
+This complete project is downloaded from ORM videos , to done the configuration in our web.xml and dispatcher-servlet.xml file.
+
+
+4)ProductAppCRUDMVC
+This project contains CRUD operations of Product App , which shows us a jsp page containning all the DB info (i.e. all products available in DB)
+and buttons given on this jsp page to add , update and delete the existing product.
+DB information is available in dispatcher servlet i.e. spring-servlet.xml
